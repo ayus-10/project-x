@@ -6,16 +6,23 @@ import { FaChevronDown } from "react-icons/fa";
 const Navbar = () => {
   const navLinks = [
     {
-      title: "Home",
-      dropdowns: ["Link 1", "Link 2", "Link 3"],
+      title: "Categories",
+      dropdowns: [
+        "Apparel",
+        "Electronics",
+        "Gaming",
+        "Beauty",
+        "Home Decor",
+        "Others",
+      ],
     },
     {
-      title: "About",
-      dropdowns: ["Link 1", "Link 2", "Link 3"],
+      title: "Support",
+      dropdowns: ["FAQs", "Shipping", "Return"],
     },
     {
-      title: "Services",
-      dropdowns: ["Link 1", "Link 2", "Link 3"],
+      title: "Sell",
+      dropdowns: ["How to Sell", "Shipping", "Seller Fees"],
     },
   ];
 
@@ -37,22 +44,21 @@ const Navbar = () => {
     <header className="w-full pt-2 text-gray-900">
       <nav className="h-18 mx-auto flex w-full justify-between rounded-full bg-white p-2 shadow-md md:w-[99%]">
         <h1 className="cursor-pointer rounded-full bg-rose-500 p-2 text-2xl uppercase tracking-widest text-white">
-          Logo
+          P-x
         </h1>
         <ul className="hidden items-center justify-between gap-12 md:flex">
           {navLinks.map((navLink, index) => (
-            <li className="group relative" key={index}>
+            <li className="group relative cursor-pointer" key={index}>
               <span className="rounded-full p-2 text-xl uppercase tracking-wider duration-300 ease-in-out group-hover:bg-rose-500 group-hover:text-white">
                 {navLink.title}
               </span>
-              <div className="absolute inset-0 hidden pt-16 group-hover:block">
+              <div className="absolute inset-0 z-10 hidden pt-12 group-hover:block">
                 <ul className="h-fit w-fit rounded-md bg-white text-lg">
                   {navLink.dropdowns.map((dropdown, i) => (
                     <li className="w-32 cursor-pointer p-2 text-center" key={i}>
-                      <p className="duration-300 ease-in-out hover:text-rose-500">
+                      <p className="border-b border-rose-500 duration-300 ease-in-out hover:text-rose-500">
                         {dropdown}
                       </p>
-                      <div className="h-px w-full bg-rose-500"></div>
                     </li>
                   ))}
                 </ul>
@@ -61,7 +67,7 @@ const Navbar = () => {
           ))}
           <li>
             <button className="rounded-full border-2 border-rose-500 bg-rose-500 p-2 text-xl uppercase text-white duration-300 ease-in-out hover:bg-white hover:text-gray-900">
-              Get Started
+              View cart
             </button>
           </li>
         </ul>
@@ -73,13 +79,13 @@ const Navbar = () => {
         </div>
       </nav>
       <div
-        className={`fixed top-2 h-screen w-2/3 rounded-r-[2.25rem] bg-rose-500 duration-300 ease-in-out ${
+        className={`fixed top-2 z-50 h-screen w-2/3 rounded-r-[2.25rem] bg-rose-500 duration-300 ease-in-out ${
           mobileNav ? "left-0" : "-left-[100%] "
         }`}
       >
         <ul className="mx-4 my-12 flex h-full flex-col gap-8 text-2xl text-white">
           {navLinks.map((navLink, index) => (
-            <li key={index}>
+            <li key={index} className=" cursor-pointer">
               <p
                 onClick={() => handleToggleDropdowns(index)}
                 className={`w-full bg-white p-2 text-center text-rose-600 ${
@@ -96,7 +102,7 @@ const Navbar = () => {
               {toggleDropdowns[index] && (
                 <ul className="rounded-b-md bg-white p-2 text-gray-900">
                   {navLink.dropdowns.map((dropdown, i) => (
-                    <li key={i} className="py-2 text-center">
+                    <li key={i} className="cursor-pointer py-2 text-center">
                       {dropdown}
                     </li>
                   ))}
@@ -104,6 +110,9 @@ const Navbar = () => {
               )}
             </li>
           ))}
+          <li className="w-full cursor-pointer rounded-md bg-white p-2 text-center text-rose-600">
+            View Cart
+          </li>
         </ul>
       </div>
     </header>
