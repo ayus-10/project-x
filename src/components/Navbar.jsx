@@ -50,8 +50,8 @@ const Navbar = (props) => {
   return (
     <header className="w-full pt-2 text-gray-900">
       <nav className="h-18 mx-auto flex w-full justify-between rounded-full bg-white p-2 shadow-md md:w-[99%]">
-        <h1 className="cursor-pointer rounded-full bg-rose-500 p-2 text-2xl uppercase tracking-widest text-white">
-          P-x
+        <h1 className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-rose-500 p-2 text-2xl uppercase tracking-widest text-white">
+          X
         </h1>
         <ul className="hidden items-center justify-between gap-12 md:flex">
           {navLinks.map((navLink, index) => (
