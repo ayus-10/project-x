@@ -27,10 +27,12 @@ const Navbar = (props) => {
     },
   ];
 
-  const [category, setCategory] = useState("all");
-  const changeCategory = (category) => {
-    setCategory(category);
-    props.changeNavCategory(category);
+  const handleClick = (item) => {
+    const categoryItems = navLinks[0].dropdowns;
+    const supportItems = navLinks[1].dropdowns;
+    const sellItems = navLinks[2].dropdowns;
+    if (categoryItems.includes(item))
+      props.changeNavCategory(item.toLowerCase());
   };
 
   const [mobileNav, setMobileNav] = useState(false);
@@ -65,9 +67,7 @@ const Navbar = (props) => {
                     <li className="w-32 cursor-pointer p-2 text-center" key={i}>
                       <p
                         className="border-b border-rose-500 duration-300 ease-in-out hover:text-rose-500"
-                        onClick={() =>
-                          changeCategory(dropdown.toLocaleLowerCase())
-                        }
+                        onClick={() => handleClick(dropdown)}
                       >
                         {dropdown}
                       </p>
@@ -117,9 +117,7 @@ const Navbar = (props) => {
                     <li
                       key={i}
                       className="cursor-pointer py-2 text-center"
-                      onClick={() =>
-                        changeCategory(dropdown.toLocaleLowerCase())
-                      }
+                      onClick={() => handleClick(dropdown)}
                     >
                       {dropdown}
                     </li>
