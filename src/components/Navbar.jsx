@@ -3,11 +3,12 @@ import { HiBars4 } from "react-icons/hi2";
 import { RxCross1 } from "react-icons/rx";
 import { FaChevronDown } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const navLinks = [
     {
       title: "Categories",
       dropdowns: [
+        "All",
         "Apparel",
         "Electronics",
         "Gaming",
@@ -25,6 +26,12 @@ const Navbar = () => {
       dropdowns: ["How to Sell", "Shipping", "Seller Fees"],
     },
   ];
+
+  const [category, setCategory] = useState("all");
+  const changeCategory = (category) => {
+    setCategory(category);
+    props.changeNavCategory(category);
+  };
 
   const [mobileNav, setMobileNav] = useState(false);
   const changeNav = () => {
@@ -56,7 +63,12 @@ const Navbar = () => {
                 <ul className="h-fit w-fit rounded-md bg-white text-lg">
                   {navLink.dropdowns.map((dropdown, i) => (
                     <li className="w-32 cursor-pointer p-2 text-center" key={i}>
-                      <p className="border-b border-rose-500 duration-300 ease-in-out hover:text-rose-500">
+                      <p
+                        className="border-b border-rose-500 duration-300 ease-in-out hover:text-rose-500"
+                        onClick={() =>
+                          changeCategory(dropdown.toLocaleLowerCase())
+                        }
+                      >
                         {dropdown}
                       </p>
                     </li>
@@ -102,7 +114,13 @@ const Navbar = () => {
               {toggleDropdowns[index] && (
                 <ul className="rounded-b-md bg-white p-2 text-gray-900">
                   {navLink.dropdowns.map((dropdown, i) => (
-                    <li key={i} className="cursor-pointer py-2 text-center">
+                    <li
+                      key={i}
+                      className="cursor-pointer py-2 text-center"
+                      onClick={() =>
+                        changeCategory(dropdown.toLocaleLowerCase())
+                      }
+                    >
                       {dropdown}
                     </li>
                   ))}

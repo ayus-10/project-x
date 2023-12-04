@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { products } from "./Products";
 
-const Home = () => {
+const Home = (props) => {
   const [search, setSearch] = useState("");
+
+  let filteredProducts = products.filter((product) => {
+    return product.keywords.includes(props.navCategory);
+  });
 
   return (
     <section className="mx-auto w-[99%] md:w-[90%]">
@@ -22,7 +26,7 @@ const Home = () => {
         Featured items
       </h1>
       <div className="mx-2 mb-12 mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products
+        {filteredProducts
           .filter((product) => {
             return product.name
               .toLocaleLowerCase()
