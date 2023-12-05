@@ -12,7 +12,7 @@ const App = () => {
   };
 
   // Using state to set the details of products to display on ViewItem component, state function is being passed to Home component to update the state
-  const [viewItem, setViewItem] = useState([]);
+  const [viewItem, setViewItem] = useState({});
   const changeViewItem = (item) => {
     setViewItem(item);
   };
