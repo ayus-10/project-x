@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { HiBars4 } from "react-icons/hi2";
 import { RxCross1 } from "react-icons/rx";
 import { FaChevronDown } from "react-icons/fa";
 
 const Navbar = (props) => {
-  const navLinks = [
+  const categoryLinks = [
     {
       title: "Categories",
       dropdowns: [
@@ -17,121 +18,137 @@ const Navbar = (props) => {
         "Others",
       ],
     },
-    {
-      title: "Support",
-      dropdowns: ["FAQs", "Shipping", "Return"],
-    },
-    {
-      title: "Sell",
-      dropdowns: ["How to Sell", "Shipping", "Seller Fees"],
-    },
   ];
 
-  const handleClick = (item) => {
-    const categoryItems = navLinks[0].dropdowns;
-    const supportItems = navLinks[1].dropdowns;
-    const sellItems = navLinks[2].dropdowns;
-    if (categoryItems.includes(item))
-      props.changeNavCategory(item.toLowerCase());
+  const otherLinks = ["Sell", "Shipping"];
+
+  const setCategory = props.changeNavCategory;
+  const changeCategory = (category) => {
+    setCategory(category);
   };
 
-  const [mobileNav, setMobileNav] = useState(false);
-  const changeNav = () => {
-    setMobileNav(!mobileNav);
+  const [showNav, setShowNav] = useState(false);
+  const toggleNav = () => {
+    setShowNav(!showNav);
   };
 
-  const [toggleDropdowns, setToggleDropdowns] = useState(
-    Array(navLinks.length).fill(false),
-  );
-  const handleToggleDropdowns = (index) => {
-    const newToggleDropdowns = [...toggleDropdowns];
-    newToggleDropdowns[index] = !newToggleDropdowns[index];
-    setToggleDropdowns(newToggleDropdowns);
+  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
+  const toggleMobileDropdown = () => {
+    setShowMobileDropdown(!showMobileDropdown);
   };
+
+  useEffect(() => {
+    setShowNav(false);
+    setShowMobileDropdown(false);
+  }, [props.navCategory]);
 
   return (
-    <header className="w-full pt-2 text-gray-900">
-      <nav className="h-18 mx-auto flex w-full justify-between rounded-full bg-white p-2 shadow-md md:w-[99%]">
-        <h1 className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-rose-500 p-2 text-2xl uppercase tracking-widest text-white">
-          X
-        </h1>
-        <ul className="hidden items-center justify-between gap-12 md:flex">
-          {navLinks.map((navLink, index) => (
-            <li className="group relative cursor-pointer" key={index}>
-              <span className="rounded-full p-2 text-xl uppercase tracking-wider duration-300 ease-in-out group-hover:bg-rose-500 group-hover:text-white">
-                {navLink.title}
-              </span>
-              <div className="absolute inset-0 z-10 hidden pt-12 group-hover:block">
-                <ul className="h-fit w-fit rounded-md bg-white text-lg">
-                  {navLink.dropdowns.map((dropdown, i) => (
-                    <li className="w-32 cursor-pointer p-2 text-center" key={i}>
-                      <p
-                        className="border-b border-rose-500 duration-300 ease-in-out hover:text-rose-500"
-                        onClick={() => handleClick(dropdown)}
-                      >
-                        {dropdown}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-          <li>
-            <button className="rounded-full border-2 border-rose-500 bg-rose-500 p-2 text-xl uppercase text-white duration-300 ease-in-out hover:bg-white hover:text-gray-900">
-              View cart
-            </button>
-          </li>
-        </ul>
-        <div
-          className="mx-2 flex items-center justify-center md:hidden"
-          onClick={changeNav}
+    <>
+      <nav className="mx-auto mt-2 flex h-16 w-[99%] items-center justify-between rounded-full bg-white p-2">
+        <Link
+          className="grid h-12 w-12 cursor-pointer place-content-center rounded-full border-2 border-rose-500 bg-rose-500 p-2 text-2xl text-white duration-300 ease-in-out hover:bg-white hover:text-gray-900"
+          to={"/"}
         >
-          {mobileNav ? <RxCross1 size={32} /> : <HiBars4 size={32} />}
-        </div>
-      </nav>
-      <div
-        className={`fixed top-2 z-50 h-screen w-2/3 rounded-r-[2.25rem] bg-rose-500 duration-300 ease-in-out ${
-          mobileNav ? "left-0" : "-left-[100%] "
-        }`}
-      >
-        <ul className="mx-4 my-12 flex h-full flex-col gap-8 text-2xl text-white">
-          {navLinks.map((navLink, index) => (
-            <li key={index} className=" cursor-pointer">
-              <p
-                onClick={() => handleToggleDropdowns(index)}
-                className={`w-full bg-white p-2 text-center text-rose-600 ${
-                  toggleDropdowns[index] ? "rounded-t-md" : "rounded-md"
-                }`}
-              >
-                {navLink.title}
-                <FaChevronDown
-                  className={`ml-4 inline text-rose-600 duration-200 ease-in-out ${
-                    toggleDropdowns[index] ? "rotate-180" : "rotate-0"
-                  }`}
-                />
-              </p>
-              {toggleDropdowns[index] && (
-                <ul className="rounded-b-md bg-white p-2 text-gray-900">
-                  {navLink.dropdowns.map((dropdown, i) => (
+          X
+        </Link>
+        <div className="hidden items-center gap-4 text-gray-900 md:flex">
+          {categoryLinks.map((item, i) => (
+            <div className="group relative" key={i}>
+              <Link className="rounded-full p-2 text-xl uppercase tracking-wider duration-300 ease-in-out hover:bg-rose-500 hover:text-white">
+                {item.title}
+              </Link>
+              <div className="absolute z-10 hidden pt-6 group-hover:block">
+                <ul className="rounded-md bg-white p-2 shadow-md">
+                  {item.dropdowns.map((dropdown, i) => (
                     <li
                       key={i}
-                      className="cursor-pointer py-2 text-center"
-                      onClick={() => handleClick(dropdown)}
+                      className="cursor-pointer border-b border-rose-500 p-2 text-lg hover:text-rose-500"
+                      onClick={() => {
+                        changeCategory(dropdown.toLowerCase());
+                      }}
                     >
                       {dropdown}
                     </li>
                   ))}
                 </ul>
-              )}
-            </li>
+              </div>
+            </div>
           ))}
-          <li className="w-full cursor-pointer rounded-md bg-white p-2 text-center text-rose-600">
-            View Cart
-          </li>
-        </ul>
+          {otherLinks.map((item, i) => (
+            <Link
+              className="rounded-full p-2 text-xl uppercase tracking-wider duration-300 ease-in-out hover:bg-rose-500 hover:text-white"
+              key={i}
+            >
+              {item}
+            </Link>
+          ))}
+          <Link
+            className="grid cursor-pointer place-content-center rounded-full border-2 border-rose-500 bg-rose-500 p-2 text-xl tracking-wider text-white duration-300 ease-in-out hover:bg-white hover:text-gray-900"
+            to={"/ViewCart"}
+          >
+            VIEW CART
+          </Link>
+        </div>
+        <div className="mx-2 text-3xl md:hidden" onClick={toggleNav}>
+          {showNav ? <RxCross1 /> : <HiBars4 />}
+        </div>
+      </nav>
+      <div
+        className={`fixed inset-0 z-10 h-screen w-[70%] rounded-r-[2rem] bg-rose-500 px-6 py-12 text-2xl text-gray-900 duration-300 ease-in-out ${
+          showNav ? "left-0" : " -left-full"
+        }`}
+      >
+        {categoryLinks.map((item, i) => (
+          <div key={i} className="flex flex-col">
+            <Link
+              className={`mb-px flex items-center justify-between bg-white p-2 focus:text-rose-500 ${
+                showMobileDropdown ? "rounded-t-md" : "rounded-md"
+              }`}
+              onClick={toggleMobileDropdown}
+            >
+              <span>{item.title}</span>
+              <span
+                className={`duration-200 ease-in-out ${
+                  showMobileDropdown ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                <FaChevronDown />
+              </span>
+            </Link>
+            <ul
+              className={`rounded-b-md bg-white p-2 ${
+                showMobileDropdown ? "block" : "hidden"
+              }`}
+            >
+              {item.dropdowns.map((dropdown, i) => (
+                <li
+                  key={i}
+                  onClick={() => {
+                    changeCategory(dropdown.toLowerCase());
+                  }}
+                >
+                  {dropdown}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        {otherLinks.map((item, i) => (
+          <Link
+            className="my-2 block rounded-md bg-white p-2 focus:text-rose-500"
+            key={i}
+          >
+            {item}
+          </Link>
+        ))}
+        <Link
+          to={"/ViewCart"}
+          className="my-2 block rounded-md bg-white p-2 focus:text-rose-500"
+        >
+          View Cart
+        </Link>
       </div>
-    </header>
+    </>
   );
 };
 
