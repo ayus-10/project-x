@@ -5,6 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 import { FaChevronDown } from "react-icons/fa";
 
 const Navbar = (props) => {
+  // Array of categories
   const categoryLinks = [
     {
       title: "Categories",
@@ -20,23 +21,28 @@ const Navbar = (props) => {
     },
   ];
 
+  // Array of other nav links
   const otherLinks = ["Sell", "Shipping"];
 
+  // Changing the navCategory state on App component
   const setCategory = props.changeNavCategory;
   const changeCategory = (category) => {
     setCategory(category);
   };
 
+  // Show/hide navbar on clicking hamburger menu on mobile devices
   const [showNav, setShowNav] = useState(false);
   const toggleNav = () => {
     setShowNav(!showNav);
   };
 
+  // Show/hide category list on clicking the category button from mobile nav
   const [showMobileDropdown, setShowMobileDropdown] = useState(false);
   const toggleMobileDropdown = () => {
     setShowMobileDropdown(!showMobileDropdown);
   };
 
+  // Hide the mobile nav whenever navCategory state is changed
   useEffect(() => {
     setShowNav(false);
     setShowMobileDropdown(false);

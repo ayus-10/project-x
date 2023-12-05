@@ -28,7 +28,7 @@ export const products = [
     img: Img2,
     price: 249,
     description: "High-quality camera lens for professional photography.",
-    keywords: ["all", "other", "electronics"],
+    keywords: ["all", "others", "electronics"],
   },
   {
     name: "Xbox Controller",
@@ -72,14 +72,14 @@ export const products = [
     price: 39,
     description:
       "Luxurious perfume with a captivating and long-lasting fragrance.",
-    keywords: ["all", "other", "beauty"],
+    keywords: ["all", "others", "beauty"],
   },
   {
-    name: "Mitzie room spray",
+    name: "Bagpack",
     img: Img9,
-    price: 10,
-    description: "Room spray to create a fresh and inviting atmosphere.",
-    keywords: ["all", "others", "home decor"],
+    price: 80,
+    description: "Durable backpack for carrying your essentials in style.",
+    keywords: ["all", "others"],
   },
   {
     name: "Curology cream",
@@ -127,10 +127,10 @@ export const products = [
     keywords: ["all", "electronics", "gaming"],
   },
   {
-    name: "Backpack",
+    name: "Teddy Bear",
     img: Img16,
     price: 39,
-    description: "Durable backpack for carrying your essentials in style.",
-    keywords: ["all", "apparel", "others"],
+    description: "Adorable teddy bear for cuddles and companionship.",
+    keywords: ["all", "home decor", "others"],
   },
 ];

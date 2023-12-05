@@ -1,17 +1,27 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { products } from "./Products";
 
 const Home = (props) => {
+  // Using state to update search value
   const [search, setSearch] = useState("");
 
+  // Using this function for user friendly output as the navCategory state is all lowercase
   const capitalizeFirstLetter = (word) => {
     return word.replace(word[0], word[0].toUpperCase());
   };
 
+  // Using navCategory state to filter the product array
   let filteredProducts = products.filter((product) => {
     return product.keywords.includes(props.navCategory);
   });
+
+  // Changing the viewItem state on App component
+  const setItem = props.changeViewItem;
+  const handleSetItem = (item) => {
+    setItem(item);
+  };
 
   return (
     <section className="mx-auto w-[99%] md:w-[90%]">
@@ -50,9 +60,15 @@ const Home = (props) => {
                 src={product.img}
                 alt={`Image for ${product.name}`}
               />
-              <button className="w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900">
+              <Link
+                className="w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900"
+                onClick={() => {
+                  handleSetItem(product);
+                }}
+                to={"/ViewItem"}
+              >
                 View item
-              </button>
+              </Link>
             </div>
           ))}
       </div>

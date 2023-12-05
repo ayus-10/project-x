@@ -1,7 +1,7 @@
 import React from "react";
 
-const ViewItem = ({ tempVar }) => {
-  return <div>Hi this is {tempVar}</div>;
+const ViewItem = () => {
+  return <div>Hello World</div>;
 };
 
 export default ViewItem;
