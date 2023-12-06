@@ -46,18 +46,16 @@ const ViewItem = (props) => {
     setProductQuantity((productQuantity) => productQuantity + 1);
   };
 
-  // Create an array to store details of current product to add to cart
-  let newCartItem = [];
+  // Create an object to store details of current product to add to cart
+  let newCartItem = {};
 
   useEffect(() => {
-    // (Optional) Checking if pageContent array keys are not undefined before pushing them to newCartItem array
+    // (Optional) Checking if pageContent array keys are not undefined before adding data to newCartItem object
     if (pageContent.name) {
-      newCartItem.push(
-        pageContent.img,
-        pageContent.name,
-        pageContent.price,
-        productQuantity,
-      );
+      newCartItem.img = pageContent.img;
+      newCartItem.name = pageContent.name;
+      newCartItem.price = pageContent.price;
+      newCartItem.quantity = productQuantity;
     }
   }, [pageContent, productQuantity]); // Run the code on page load and quantity change
 

@@ -19,7 +19,7 @@ const App = () => {
   };
 
   // Using state to add products to cart to display on ViewCart component, state function is being passed to ViewItem component to update the state
-  const [cartItem, setcartItem] = useState([]);
+  const [cartItem, setcartItem] = useState({});
   const changecartItem = (item) => {
     setcartItem(item);
   };
