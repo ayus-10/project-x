@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const ViewItem = ({ content }) => {
+const ViewItem = (props) => {
+  const content = props.content;
+  const changecartItem = props.changecartItem;
+
   const [pageContent, setPageContent] = useState({});
 
   // Used to save/retrieve pageContent into localStorage
@@ -14,6 +18,7 @@ const ViewItem = ({ content }) => {
       localStorage.setItem("ViewItem_data", JSON.stringify(content));
     };
 
+    // Fetch previously saved data from localStorage
     let data = localStorage.getItem("ViewItem_data");
 
     if (isEmpty(content)) {
@@ -39,6 +44,25 @@ const ViewItem = ({ content }) => {
 
   const increaseNumber = () => {
     setProductQuantity((productQuantity) => productQuantity + 1);
+  };
+
+  // Create an array to store details of current product to add to cart
+  let newCartItem = [];
+
+  useEffect(() => {
+    // (Optional) Checking if pageContent array keys are not undefined before pushing them to newCartItem array
+    if (pageContent.name) {
+      newCartItem.push(
+        pageContent.img,
+        pageContent.name,
+        pageContent.price,
+        productQuantity,
+      );
+    }
+  }, [pageContent, productQuantity]); // Run the code on page load and quantity change
+
+  const addToCart = () => {
+    changecartItem(newCartItem);
   };
 
   return (
@@ -100,9 +124,13 @@ const ViewItem = ({ content }) => {
                 <FaPlus />
               </button>
             </div>
-            <button className="rounded-md border-2 border-rose-500 bg-rose-500 p-1 text-lg text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900 md:text-xl">
+            <Link
+              onClick={addToCart}
+              to={"/ViewCart"}
+              className="rounded-md border-2 border-rose-500 bg-rose-500 p-1 text-lg text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900 md:text-xl"
+            >
               Add to Cart
-            </button>
+            </Link>
           </div>
         </div>
       </div>
