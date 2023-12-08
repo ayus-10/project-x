@@ -14,6 +14,7 @@ const ViewCart = (props) => {
     cartItems.push(...oldCartItems);
   }
 
+  // This function is used to check if products array(contnet) was passed while visiting this page or not
   const isEmpty = (object) => {
     return JSON.stringify(object) === "{}";
   };
@@ -45,6 +46,7 @@ const ViewCart = (props) => {
     }
   }, []);
 
+  // This state is being passed to the useEffect as dependency below, used to make the page re-render whenever any product is removed off the cart
   const [itemRemoveCounter, setItemRemoveCounter] = useState(0);
 
   useEffect(() => {
@@ -56,7 +58,16 @@ const ViewCart = (props) => {
       return JSON.stringify(oldCartItem) !== JSON.stringify(item);
     });
     saveData(updatedCartItems);
+
+    // Update the state to make the page re-render
     setItemRemoveCounter((itemRemoveCounter) => itemRemoveCounter + 1);
+  };
+
+  // This function is used to conditionally render pageContent or error message accordingly
+  const isCartEmpty = () => {
+    if (pageContent !== null) {
+      return pageContent.length !== 0 ? true : false;
+    } else return false;
   };
 
   return (
@@ -64,13 +75,13 @@ const ViewCart = (props) => {
       <div className="mx-auto h-4/5 w-11/12 rounded-md bg-white px-4 py-12 text-gray-900 md:w-2/3">
         <div className="px-6 pb-4">
           <h1 className="w-full rounded-md bg-rose-500 px-4 py-2 text-center font-semibold uppercase text-white sm:text-2xl md:text-3xl">
-            {pageContent.length !== 0
+            {isCartEmpty() === true
               ? "Checkout your cart"
               : "No items found in cart"}
           </h1>
         </div>
         <div className="h-4/5 overflow-y-auto px-6 py-3">
-          {pageContent.length !== 0 ? (
+          {isCartEmpty() === true ? (
             pageContent.map((item, i) => (
               <div
                 key={i}
@@ -113,7 +124,7 @@ const ViewCart = (props) => {
             </div>
           )}
         </div>
-        {pageContent.length !== 0 && (
+        {isCartEmpty() === true && (
           <div className="flex w-full">
             <button className="mx-auto mt-4 w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900">
               Place order
