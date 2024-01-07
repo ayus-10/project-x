@@ -1,6 +1,6 @@
 # About
 
-This is an e-commerce website built using React(Vite) and Tailwind CSS.
+This is an e-commerce website built using React JS and Tailwind CSS.
 
 ![Demo Image](https://www.aayushupreti.com.np/assets/x-bbdb6b15.png)
 
