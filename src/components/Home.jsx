@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { products } from "./Products";
 
-const Home = (props) => {
+const Home = ({ navCategory }) => {
   // Using state to update search value
   const [search, setSearch] = useState("");
 
@@ -14,14 +14,8 @@ const Home = (props) => {
 
   // Using navCategory state to filter the product array
   let filteredProducts = products.filter((product) => {
-    return product.keywords.includes(props.navCategory);
+    return product.keywords.includes(navCategory);
   });
-
-  // Changing the viewItem state on App component
-  const setItem = props.changeViewItem;
-  const handleSetItem = (item) => {
-    setItem(item);
-  };
 
   return (
     <section className="mx-auto w-[99%] md:w-[90%]">
@@ -37,7 +31,7 @@ const Home = (props) => {
         </button>
       </div>
       <h1 className="mx-2 rounded-sm text-3xl font-bold text-gray-800">
-        {"Category: " + capitalizeFirstLetter(props.navCategory)}
+        {"Category: " + capitalizeFirstLetter(navCategory)}
       </h1>
       <div className="mx-2 mb-12 mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredProducts
@@ -62,10 +56,7 @@ const Home = (props) => {
               />
               <Link
                 className="w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900"
-                onClick={() => {
-                  handleSetItem(product);
-                }}
-                to={"/ViewItem"}
+                to={`/item/${product.id}`}
               >
                 View item
               </Link>

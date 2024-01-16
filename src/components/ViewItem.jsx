@@ -1,45 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { products } from "./Products";
 
-const ViewItem = (props) => {
-  const content = props.content;
-  const changecartItem = props.changecartItem;
+const ViewItem = ({ changecartItem }) => {
+  // Get the id of product from url, to view on the page
+  const { id } = useParams();
 
   const [pageContent, setPageContent] = useState({});
 
-  // Used to save/retrieve pageContent into localStorage
   useEffect(() => {
-    const isEmpty = (object) => {
-      return JSON.stringify(object) === "{}";
-    };
-
-    const saveData = () => {
-      localStorage.setItem("ViewItem_data", JSON.stringify(content));
-    };
-
-    // Fetch previously saved data from localStorage
-    let data = localStorage.getItem("ViewItem_data");
-
-    if (isEmpty(content)) {
-      if (data === null) {
-        saveData(); // Set new data
+    // Loop through the array of all objects and set the required object to pageContent state
+    products.forEach((product) => {
+      if (product.id === parseInt(id)) {
+        setPageContent(product);
+        return;
       }
-    } else {
-      if (data !== JSON.stringify(content)) {
-        saveData(); // Update previous data
-      }
-    }
-
-    setPageContent(JSON.parse(data));
+    });
   }, []);
 
   const [productQuantity, setProductQuantity] = useState(1);
 
   const decreaseNumber = () => {
-    productQuantity > 1
-      ? setProductQuantity((productQuantity) => productQuantity - 1)
-      : null;
+    if (productQuantity > 1) {
+      setProductQuantity((productQuantity) => productQuantity - 1);
+    }
   };
 
   const increaseNumber = () => {
@@ -125,7 +110,7 @@ const ViewItem = (props) => {
               </div>
               <Link
                 onClick={addToCart}
-                to={"/ViewCart"}
+                to={"/cart"}
                 className="rounded-md border-2 border-rose-500 bg-rose-500 p-1 text-lg text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900 md:text-xl"
               >
                 Add to Cart

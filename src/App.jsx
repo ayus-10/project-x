@@ -6,19 +6,13 @@ import ViewItem from "./components/ViewItem";
 import ViewCart from "./components/ViewCart";
 
 const App = () => {
-  // Using state to set the category of products to display on Home component, state function is being passed to Navbar componet to update the state
+  // Using state to set the category of products to display on Home component
   const [navCategory, setNavCategory] = useState("all");
   const changeNavCategory = (category) => {
     setNavCategory(category);
   };
 
-  // Using state to set the details of products to display on ViewItem component, state function is being passed to Home component to update the state
-  const [viewItem, setViewItem] = useState({});
-  const changeViewItem = (item) => {
-    setViewItem(item);
-  };
-
-  // Using state to add products to cart to display on ViewCart component, state function is being passed to ViewItem component to update the state
+  // Using state to add products to cart to display on ViewCart component
   const [cartItem, setcartItem] = useState({});
   const changecartItem = (item) => {
     setcartItem(item);
@@ -35,17 +29,15 @@ const App = () => {
                 changeNavCategory={changeNavCategory}
                 navCategory={navCategory}
               />
-              <Home changeViewItem={changeViewItem} navCategory={navCategory} />
+              <Home navCategory={navCategory} />
             </>
           }
         />
         <Route
-          path={"/ViewItem"}
-          element={
-            <ViewItem content={viewItem} changecartItem={changecartItem} />
-          }
+          path={"/item/:id"}
+          element={<ViewItem changecartItem={changecartItem} />}
         />
-        <Route path={"/ViewCart"} element={<ViewCart content={cartItem} />} />
+        <Route path={"/cart"} element={<ViewCart content={cartItem} />} />
       </Routes>
     </div>
   );

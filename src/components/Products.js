@@ -17,6 +17,7 @@ import Img16 from "../assets/products/img16.jpg";
 
 export const products = [
   {
+    id: 1,
     name: "Wrist watch",
     img: Img1,
     price: 120,
@@ -24,6 +25,7 @@ export const products = [
     keywords: ["all", "apparel"],
   },
   {
+    id: 2,
     name: "Camera Lens",
     img: Img2,
     price: 249,
@@ -31,6 +33,7 @@ export const products = [
     keywords: ["all", "others", "electronics"],
   },
   {
+    id: 3,
     name: "Xbox Controller",
     img: Img3,
     price: 69,
@@ -38,6 +41,7 @@ export const products = [
     keywords: ["all", "gaming", "electronics"],
   },
   {
+    id: 4,
     name: "Wireless Earbuds",
     img: Img4,
     price: 99,
@@ -45,6 +49,7 @@ export const products = [
     keywords: ["all", "electronics"],
   },
   {
+    id: 5,
     name: "Beyou makeup kit",
     img: Img5,
     price: 199,
@@ -52,6 +57,7 @@ export const products = [
     keywords: ["all", "beauty"],
   },
   {
+    id: 6,
     name: "Vase for decoration",
     img: Img6,
     price: 39,
@@ -60,6 +66,7 @@ export const products = [
     keywords: ["all", "home decor"],
   },
   {
+    id: 7,
     name: "Sony Headphones",
     img: Img7,
     price: 199,
@@ -67,6 +74,7 @@ export const products = [
     keywords: ["all", "electronics", "gaming"],
   },
   {
+    id: 8,
     name: "Coco Noir Perfume",
     img: Img8,
     price: 39,
@@ -75,6 +83,7 @@ export const products = [
     keywords: ["all", "others", "beauty"],
   },
   {
+    id: 9,
     name: "Bagpack",
     img: Img9,
     price: 80,
@@ -82,6 +91,7 @@ export const products = [
     keywords: ["all", "others"],
   },
   {
+    id: 10,
     name: "Curology cream",
     img: Img10,
     price: 99,
@@ -90,6 +100,7 @@ export const products = [
     keywords: ["all", "beauty"],
   },
   {
+    id: 11,
     name: "Blue Heels",
     img: Img11,
     price: 249,
@@ -97,6 +108,7 @@ export const products = [
     keywords: ["all", "apparel"],
   },
   {
+    id: 12,
     name: "Red Lipsticks",
     img: Img12,
     price: 19,
@@ -105,20 +117,23 @@ export const products = [
     keywords: ["all", "beauty"],
   },
   {
-    name: "Jeans(Male)",
+    id: 13,
+    name: "Jeans",
     img: Img13,
     price: 79,
     description: "Classic denim jeans for a casual and timeless look.",
     keywords: ["all", "apparel"],
   },
   {
-    name: "Jacket(Male)",
+    id: 14,
+    name: "Jacket",
     img: Img14,
     price: 179,
     description: "Stylish jacket to keep you warm and on-trend in any season.",
     keywords: ["all", "apparel"],
   },
   {
+    id: 15,
     name: "Gaming PC",
     img: Img15,
     price: 1499,
@@ -127,6 +142,7 @@ export const products = [
     keywords: ["all", "electronics", "gaming"],
   },
   {
+    id: 16,
     name: "Teddy Bear",
     img: Img16,
     price: 39,

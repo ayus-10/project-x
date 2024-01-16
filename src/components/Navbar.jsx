@@ -5,6 +5,8 @@ import { RxCross1 } from "react-icons/rx";
 import { FaChevronDown } from "react-icons/fa";
 
 const Navbar = (props) => {
+  const { navCategory, changeNavCategory } = props;
+
   // Array of categories
   const categoryLinks = [
     {
@@ -25,7 +27,7 @@ const Navbar = (props) => {
   const otherLinks = ["Sell", "Shipping"];
 
   // Changing the navCategory state on App component
-  const setCategory = props.changeNavCategory;
+  const setCategory = changeNavCategory;
   const changeCategory = (category) => {
     setCategory(category);
   };
@@ -46,7 +48,7 @@ const Navbar = (props) => {
   useEffect(() => {
     setShowNav(false);
     setShowMobileDropdown(false);
-  }, [props.navCategory]);
+  }, [navCategory]);
 
   return (
     <>
@@ -90,7 +92,7 @@ const Navbar = (props) => {
           ))}
           <Link
             className="grid cursor-pointer place-content-center rounded-full border-2 border-rose-500 bg-rose-500 p-2 text-xl tracking-wider text-white duration-300 ease-in-out hover:bg-white hover:text-gray-900"
-            to={"/ViewCart"}
+            to={"/cart"}
           >
             VIEW CART
           </Link>
@@ -148,7 +150,7 @@ const Navbar = (props) => {
           </Link>
         ))}
         <Link
-          to={"/ViewCart"}
+          to={"/cart"}
           className="my-2 block rounded-md bg-white p-2 focus:text-rose-500"
         >
           View Cart
