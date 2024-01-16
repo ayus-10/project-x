@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { MdCancel } from "react-icons/md";
 import { FiAlertCircle } from "react-icons/fi";
 
-const ViewCart = (props) => {
-  const content = props.content;
+const ViewCart = ({ content }) => {
+  const getOldCartItems = () => {
+    return JSON.parse(localStorage.getItem("cart_data"));
+  };
 
-  let oldCartItems = JSON.parse(localStorage.getItem("ViewCart_data"));
+  let oldCartItems = getOldCartItems();
 
   let cartItems = [];
 
@@ -22,7 +24,9 @@ const ViewCart = (props) => {
   const [pageContent, setPageContent] = useState([]);
 
   const saveData = (data) => {
-    localStorage.setItem("ViewCart_data", JSON.stringify(data));
+    localStorage.setItem("cart_data", JSON.stringify(data));
+    let cartItems = getOldCartItems();
+    setPageContent(cartItems);
   };
 
   useEffect(() => {
@@ -32,13 +36,17 @@ const ViewCart = (props) => {
         cartItems.push(content);
       } else {
         // If cartItem is not empty, check if new object already exist
-        let isSameItem = cartItems.some((item) => {
-          if (JSON.stringify(item) === JSON.stringify(content)) {
-            return true;
+        let itemUpdated = false;
+        cartItems.forEach((item, index) => {
+          if (item.id === content.id) {
+            // Update previous object with new one
+            cartItems[index] = content;
+            itemUpdated = true;
+            return;
           }
-          return false;
         });
-        if (!isSameItem) {
+        if (!itemUpdated) {
+          // Add new object
           cartItems.push(content);
         }
       }
@@ -46,28 +54,26 @@ const ViewCart = (props) => {
     }
   }, []);
 
-  // This state is being passed to the useEffect as dependency below, used to make the page re-render whenever any product is removed off the cart
-  const [itemRemoveCounter, setItemRemoveCounter] = useState(0);
-
-  useEffect(() => {
-    setPageContent(JSON.parse(localStorage.getItem("ViewCart_data")));
-  }, [itemRemoveCounter]);
-
   const removeItem = (item) => {
     let updatedCartItems = oldCartItems.filter((oldCartItem) => {
       return JSON.stringify(oldCartItem) !== JSON.stringify(item);
     });
     saveData(updatedCartItems);
-
-    // Update the state to make the page re-render
-    setItemRemoveCounter((itemRemoveCounter) => itemRemoveCounter + 1);
   };
 
-  // This function is used to conditionally render pageContent or error message accordingly
+  // This function is used to conditionally render pageContent or error message
   const isCartEmpty = () => {
     if (pageContent !== null) {
       return pageContent.length !== 0 ? true : false;
     } else return false;
+  };
+
+  const getTotalPrice = () => {
+    let total = 0;
+    pageContent.forEach((item) => {
+      total += item.quantity * item.price;
+    });
+    return total;
   };
 
   return (
@@ -125,8 +131,11 @@ const ViewCart = (props) => {
           )}
         </div>
         {isCartEmpty() === true && (
-          <div className="flex w-full">
-            <button className="mx-auto mt-4 w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900">
+          <div className="flex w-full items-center justify-between px-6 pt-4">
+            <div className="text-2xl font-semibold">
+              Total: ${getTotalPrice()}
+            </div>
+            <button className="w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white outline-none duration-300 ease-in-out hover:bg-transparent hover:text-gray-900">
               Place order
             </button>
           </div>

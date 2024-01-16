@@ -38,6 +38,7 @@ const ViewItem = ({ changecartItem }) => {
     // (Optional) Checking if pageContent array keys are not undefined before adding data to newCartItem object
     if (pageContent.name) {
       newCartItem.img = pageContent.img;
+      newCartItem.id = pageContent.id;
       newCartItem.name = pageContent.name;
       newCartItem.price = pageContent.price;
       newCartItem.quantity = productQuantity;
