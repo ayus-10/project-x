@@ -25,6 +25,8 @@ const ViewCart = ({ content }) => {
 
   const saveData = (data) => {
     localStorage.setItem("cart_data", JSON.stringify(data));
+
+    // Update the state
     let cartItems = getOldCartItems();
     setPageContent(cartItems);
   };
@@ -51,6 +53,9 @@ const ViewCart = ({ content }) => {
         }
       }
       saveData(cartItems);
+    } else {
+      // On browser restart
+      setPageContent(oldCartItems);
     }
   }, []);
 
