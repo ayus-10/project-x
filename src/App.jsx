@@ -13,9 +13,9 @@ const App = () => {
   };
 
   // Using state to add products to cart to display on ViewCart component
-  const [cartItem, setcartItem] = useState({});
-  const changecartItem = (item) => {
-    setcartItem(item);
+  const [cartItem, setCartItem] = useState({});
+  const changeCartItem = (item) => {
+    setCartItem(item);
   };
 
   return (
@@ -35,9 +35,12 @@ const App = () => {
         />
         <Route
           path={"/item/:id"}
-          element={<ViewItem changecartItem={changecartItem} />}
+          element={<ViewItem changeCartItem={changeCartItem} />}
         />
-        <Route path={"/cart"} element={<ViewCart content={cartItem} />} />
+        <Route
+          path={"/cart"}
+          element={<ViewCart content={cartItem} setCartItem={setCartItem} />}
+        />
       </Routes>
     </div>
   );

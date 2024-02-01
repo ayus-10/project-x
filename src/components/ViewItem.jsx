@@ -3,7 +3,7 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { products } from "./Products";
 
-const ViewItem = ({ changecartItem }) => {
+const ViewItem = ({ changeCartItem }) => {
   // Get the id of product from url, to view on the page
   const { id } = useParams();
 
@@ -46,7 +46,7 @@ const ViewItem = ({ changecartItem }) => {
   }, [pageContent, productQuantity]); // Run the code on page load and quantity change
 
   const addToCart = () => {
-    changecartItem(newCartItem);
+    changeCartItem(newCartItem);
   };
 
   return (

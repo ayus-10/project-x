@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MdCancel } from "react-icons/md";
 import { FiAlertCircle } from "react-icons/fi";
 
-const ViewCart = ({ content }) => {
+const ViewCart = ({ content, setCartItem }) => {
   const getOldCartItems = () => {
     return JSON.parse(localStorage.getItem("cart_data"));
   };
@@ -29,6 +29,9 @@ const ViewCart = ({ content }) => {
     // Update the state
     let cartItems = getOldCartItems();
     setPageContent(cartItems);
+
+    // Unset the state after saving its data
+    setCartItem({});
   };
 
   useEffect(() => {
@@ -83,15 +86,13 @@ const ViewCart = ({ content }) => {
 
   return (
     <section className="flex h-screen items-center justify-center">
-      <div className="mx-auto h-4/5 w-11/12 rounded-md bg-white px-4 py-12 text-gray-900 md:w-2/3">
-        <div className="px-6 pb-4">
-          <h1 className="w-full rounded-md bg-rose-500 px-4 py-2 text-center font-semibold uppercase text-white sm:text-2xl md:text-3xl">
-            {isCartEmpty() === true
-              ? "Checkout your cart"
-              : "No items found in cart"}
-          </h1>
-        </div>
-        <div className="h-4/5 overflow-y-auto px-6 py-3">
+      <div className="mx-auto flex h-[90%] w-11/12 flex-col rounded-md bg-white px-8 py-12 text-gray-900 md:w-2/3 md:px-16">
+        <h1 className="w-full rounded-md bg-rose-500 px-4 py-2 text-center font-semibold uppercase text-white sm:text-2xl md:text-3xl">
+          {isCartEmpty() === true
+            ? "Checkout your cart"
+            : "No items found in cart"}
+        </h1>
+        <div className="my-8 h-full overflow-y-auto px-4">
           {isCartEmpty() === true ? (
             pageContent.map((item, i) => (
               <div
@@ -136,11 +137,11 @@ const ViewCart = ({ content }) => {
           )}
         </div>
         {isCartEmpty() === true && (
-          <div className="flex w-full items-center justify-between px-6 pt-4">
-            <div className="text-2xl font-semibold">
+          <div className="flex w-full items-center justify-between">
+            <div className="font-semibold md:text-2xl">
               Total: ${getTotalPrice()}
             </div>
-            <button className="w-fit rounded-full border-2 border-rose-500 bg-rose-500 p-2 uppercase text-white outline-none duration-300 ease-in-out hover:bg-transparent hover:text-gray-900">
+            <button className="rounded-md border-2 border-rose-500 bg-rose-500 p-1 text-white duration-300 ease-in-out hover:bg-transparent hover:text-gray-900 md:text-2xl">
               Place order
             </button>
           </div>
