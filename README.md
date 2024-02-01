@@ -1,8 +1,6 @@
 # About
 
-This is an e-commerce website built using React JS and Tailwind CSS.
-
-![Demo Image](https://www.aayushupreti.com.np/assets/x-bbdb6b15.png)
+A React app that dynamically loads items and provides item browsing, searching, sorting, viewing, and cart management.
 
 # Installation
 
